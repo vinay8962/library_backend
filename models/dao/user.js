@@ -42,10 +42,19 @@ const deleteUser = async (id) => {
   }
 };
 
+const findUser = async (data) => {
+  try {
+    return await user.findOne(data);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   addUser,
   getUser,
   updateUser,
   deleteUser,
   getAllUsers,
+  findUser,
 };
