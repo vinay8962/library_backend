@@ -3,8 +3,8 @@ const librayrModelHelper = require("../models/dao/library");
 
 const createLibrary = async (req, res) => {
   try {
-    const library = await librayrModelHelper.addLibrary(req.body);
-
+    const data = req.body;
+    const library = await librayrModelHelper.addLibrary(data);
     res.status(StatusCodes.OK).json({
       success: true,
       message: "Library created successfully",

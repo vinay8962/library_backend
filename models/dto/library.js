@@ -1,13 +1,15 @@
 const sequelize = require("../../config/db");
 const Sequelize = require("sequelize");
+const libraryPlan = require("./library_plan");
 
-const Library = sequelize.define(
+const library = sequelize.define(
   "library",
   {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+      allowNull: false,
     },
     owner_id: {
       type: Sequelize.INTEGER,
@@ -50,4 +52,14 @@ const Library = sequelize.define(
   }
 );
 
-module.exports = Library;
+library.hasMany(libraryPlan, {
+  foreignKey: "library_id",
+  as: "libraryPlan",
+});
+
+// library.hasOne(user, {
+//   foreignKey: "owner_id",
+//   as: "owner",
+// });
+
+module.exports = library;

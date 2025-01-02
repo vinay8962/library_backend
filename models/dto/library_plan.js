@@ -1,35 +1,41 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../../config/db");
 
+const library = require("./library");
 const libraryPlan = sequelize.define(
-  "LibraryPlan",
+  "library_plan",
   {
-    library_plan_Id: {
+    library_plan_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    library_Id: {
+    library_id: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
+      allowNull: false,
     },
-    plan_Name: {
+    plan_name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    plan_Frequency: {
+    plan_frequency: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    plan_Amount: {
+    plan_amount: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
   },
   {
-    tableName: "libraryPlan",
+    tableName: "library_plan",
     timestamps: false,
   }
 );
+
+// libraryPlan.belongsTo(library, {
+//   foreignKey: "libraryId",
+//   as: "library",
+// });
 
 module.exports = libraryPlan;

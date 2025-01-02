@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("LibraryPlan", {
+    await queryInterface.createTable("libraryPlan", {
       library_plan_Id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -11,7 +11,7 @@ module.exports = {
       },
       library_Id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
+        allowNull: false,
       },
       plan_Name: {
         type: Sequelize.STRING,
@@ -29,6 +29,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("LibraryPlan");
+    await queryInterface.dropTable("libraryPlan");
   },
 };
