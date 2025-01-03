@@ -3,32 +3,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("libraryPlan", {
-      library_plan_Id: {
+    await queryInterface.createTable("booking_library", {
+      booking_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false,
       },
-      library_Id: {
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      plan_Name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      plan_Frequency: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      plan_Amount: {
+      library_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      booking_start_date_time: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      booking_end_date_time: {
+        type: Sequelize.DATE,
         allowNull: false,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("libraryPlan");
+    await queryInterface.dropTable("booking_library");
   },
 };
