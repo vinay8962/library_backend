@@ -5,7 +5,7 @@ const addUser = async (data) => {
   try {
     const saltRounds = 10;
     data.password = await bcrypt.hash(data.password, saltRounds);
-    await user.create(data);
+    return await user.create(data);
   } catch (err) {
     throw new Error(err);
   }

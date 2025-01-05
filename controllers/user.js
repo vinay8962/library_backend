@@ -6,12 +6,13 @@ const jwt = require("jsonwebtoken");
 const createUser = async (req, res) => {
   try {
     const user = await userModelHelper.addUser(req.body);
-    res.status(StatusCodes.OK).json({
+    console.log(user);
+    res.status(StatusCodes.CREATED).json({
       success: true,
       message: "User created successfully",
       data: {
         id: user.id,
-        userName: user.userName,
+        name: user.name,
         email: user.email,
         role: user.role,
         address: user.address,

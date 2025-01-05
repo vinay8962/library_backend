@@ -10,7 +10,7 @@ const User = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    userName: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -27,12 +27,12 @@ const User = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    created_At: {
+    createdAt: {
       type: Sequelize.DATE,
       allowNull: false,
       defaultValue: Sequelize.NOW,
     },
-    updated_At: {
+    updatedAt: {
       type: Sequelize.DATE,
       allowNull: false,
       defaultValue: Sequelize.NOW,

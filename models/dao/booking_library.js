@@ -1,4 +1,5 @@
 const bookingLibrary = require("../dto/booking_library");
+const library = require("../dto/library");
 
 const createBookingLibrary = async (data) => {
   try {
@@ -21,7 +22,15 @@ const createBookingLibrary = async (data) => {
 
 const getBookingLibrary = async () => {
   try {
-    return await bookingLibrary.findAll();
+    return await bookingLibrary.findAll({
+      include: [
+        {
+          model: library,
+          as: "library", // Must match alias in association
+          required: true, // Ensures a library must exist
+        },
+      ],
+    });
   } catch (err) {
     throw new Error(`Error retrieving bookings: ${err.message}`);
   }

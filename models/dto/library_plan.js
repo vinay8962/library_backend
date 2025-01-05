@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../../config/db");
 
-const library = require("./library");
 const libraryPlan = sequelize.define(
   "library_plan",
   {
@@ -13,6 +12,10 @@ const libraryPlan = sequelize.define(
     library_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
+      references: {
+        model: "library",
+        key: "id",
+      },
     },
     plan_name: {
       type: Sequelize.STRING,
@@ -28,14 +31,9 @@ const libraryPlan = sequelize.define(
     },
   },
   {
-    tableName: "library_plan",
+    tableName: "library_plan", // Ensure this matches the actual table name in DB
     timestamps: false,
   }
 );
-
-// libraryPlan.belongsTo(library, {
-//   foreignKey: "libraryId",
-//   as: "library",
-// });
 
 module.exports = libraryPlan;
