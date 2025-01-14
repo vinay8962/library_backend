@@ -21,11 +21,13 @@ const libraryPlan = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    plan_frequency: {
-      type: Sequelize.STRING,
+
+    plan_amount: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
-    plan_amount: {
+
+    plan_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },

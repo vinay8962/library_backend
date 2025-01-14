@@ -15,7 +15,6 @@ module.exports = {
           model: "library", // Ensure this matches your actual table name
           key: "id",
         },
-        onDelete: "CASCADE",
       },
       plan_name: {
         type: Sequelize.STRING,

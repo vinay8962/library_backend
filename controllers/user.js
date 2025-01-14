@@ -14,7 +14,7 @@ const createUser = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: user.roleId,
         address: user.address,
       },
     });
@@ -62,16 +62,19 @@ const loginUser = async (req, res) => {
       });
     }
     const token = jwt.sign(
-      { id: user.id, username: user.userName, role: user.role },
+      { id: user.id, username: user.name, role: user.roleId },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "2h",
       }
     );
     res.status(StatusCodes.OK).json({
       success: true,
       message: "Login SuccessFul",
-      token: token,
+      data: {
+        token: token,
+        role: user.roleId,
+      },
     });
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

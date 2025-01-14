@@ -1,3 +1,4 @@
+const Role = require("../dto/role");
 const user = require("../dto/user");
 const bcrypt = require("bcrypt");
 
@@ -13,7 +14,14 @@ const addUser = async (data) => {
 
 const getAllUsers = async () => {
   try {
-    return await user.findAll();
+    return await user.findAll({
+      include: [
+        {
+          model: Role,
+          as: "role",
+        },
+      ],
+    });
   } catch (err) {
     throw new Error(err);
   }

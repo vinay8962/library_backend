@@ -4,11 +4,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("users", {
+      // Define the user model
       id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
       },
       name: {
         type: Sequelize.STRING,
@@ -19,19 +19,11 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      mobile: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       password: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      role: {
+      mobile: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -44,6 +36,18 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW,
+      },
+      roleId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Roles",
+          key: "id",
+        },
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
     });
   },
