@@ -3,7 +3,7 @@ const sequelize = require("../../config/db");
 const library = require("./library");
 
 const bookingLibrary = sequelize.define(
-  "booking_library",
+  "BookingLibrary",
   {
     booking_id: {
       type: Sequelize.INTEGER,
@@ -33,10 +33,5 @@ const bookingLibrary = sequelize.define(
     timestamps: false, // Fixed typo
   }
 );
-
-bookingLibrary.belongsTo(library, {
-  foreignKey: "library_id",
-  as: "library",
-});
 
 module.exports = bookingLibrary;

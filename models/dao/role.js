@@ -1,8 +1,8 @@
-const role = require("../dto/role");
+const { Role } = require("../dto");
 
 const getRole = async () => {
   try {
-    return await role.findAll();
+    return await Role.findAll();
   } catch (err) {
     throw new Error(err);
   }

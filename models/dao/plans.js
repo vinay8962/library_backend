@@ -1,8 +1,8 @@
-const Plans = require("../dto/plans");
+const { plans } = require("../dto");
 
 const getPlans = async () => {
   try {
-    return await Plans.findAll(); // Fixed incorrect import reference
+    return await plans.findAll(); // Fixed incorrect import reference
   } catch (error) {
     throw new Error(error.message); // Added `.message` for better error handling
   }

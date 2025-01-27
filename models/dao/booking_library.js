@@ -1,5 +1,5 @@
-const bookingLibrary = require("../dto/booking_library");
-const library = require("../dto/library");
+const bookingLibrary = require("../dto");
+const library = require("../dto");
 
 const createBookingLibrary = async (data) => {
   try {

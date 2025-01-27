@@ -20,7 +20,7 @@ const createLibrary = async (req, res) => {
   }
 };
 
-const getLibrary = async (req, res) => {
+const getAllLibrarys = async (req, res) => {
   try {
     const library = await librayrModelHelper.getAllLibrary();
     res.status(StatusCodes.OK).json({
@@ -38,4 +38,54 @@ const getLibrary = async (req, res) => {
   }
 };
 
-module.exports = { createLibrary, getLibrary };
+const getLibrary = async (req, res) => {
+  try {
+    const { owner_id } = req.params; // Get owner_id from request params
+    const library = await librayrModelHelper.getLibrary(owner_id);
+
+    if (!library) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "Library not found",
+      });
+    }
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Library retrieved successfully",
+      data: library,
+    });
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
+
+const getLibraryById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const library = await librayrModelHelper.getLibraryById(id);
+    if (!library) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "Library not found",
+      });
+    }
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Library retrieved successfully",
+      data: library,
+    });
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
+
+module.exports = { createLibrary, getAllLibrarys, getLibrary, getLibraryById };

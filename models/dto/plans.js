@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../../config/db");
+const libraryPlan = require("./library_plan");
 
-const Plans = sequelize.define(
-  "plans",
+const plans = sequelize.define(
+  "Plans",
   {
     plan_id: {
       type: Sequelize.INTEGER,
@@ -21,4 +22,4 @@ const Plans = sequelize.define(
   }
 );
 
-module.exports = Plans;
+module.exports = plans;

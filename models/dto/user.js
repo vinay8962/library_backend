@@ -1,9 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../../config/db");
-const Role = require("./role");
 
 const User = sequelize.define(
-  "users",
+  "Users",
   {
     // Define the user model
     id: {
@@ -42,7 +41,7 @@ const User = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: "Roles",
+        model: "role",
         key: "id",
       },
     },
@@ -52,11 +51,9 @@ const User = sequelize.define(
     },
   },
   {
-    tableName: "Users",
+    tableName: "users",
     timestamps: false, // Disabling Sequelize's automatic timestamp handling since we have custom fields
   }
 );
-
-User.belongsTo(Role, { foreignKey: "roleId", as: "role" });
 
 module.exports = User; // Export the User model

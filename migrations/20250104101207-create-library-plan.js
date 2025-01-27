@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("library_plan", {
+    await queryInterface.createTable("library_plans", {
       library_plan_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "library", // Ensure this matches your actual table name
+          model: "librarys", // Ensure this matches your actual table name
           key: "id",
         },
       },
@@ -32,6 +32,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("library_plan");
+    await queryInterface.dropTable("library_plans");
   },
 };

@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../../config/db");
+const Plans = require("./plans");
 
 const libraryPlan = sequelize.define(
-  "library_plan",
+  "LibraryPlans",
   {
     library_plan_id: {
       type: Sequelize.INTEGER,
@@ -13,7 +14,7 @@ const libraryPlan = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: "library",
+        model: "librarys",
         key: "id",
       },
     },
@@ -21,21 +22,25 @@ const libraryPlan = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-
     plan_amount: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-
     plan_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
+      references: {
+        model: "plans", // Ensure this matches the actual table name
+        key: "plan_id",
+      },
     },
   },
   {
-    tableName: "library_plan", // Ensure this matches the actual table name in DB
+    tableName: "library_plans", // Ensure this matches the actual table name in DB
     timestamps: false,
   }
 );
+
+// ✅ Establish the association between `library_plan` and `plans`
 
 module.exports = libraryPlan;

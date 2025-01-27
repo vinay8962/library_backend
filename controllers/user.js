@@ -3,10 +3,41 @@ const userModelHelper = require("../models/dao/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const { roles } = require("../config/constant");
+
 const createUser = async (req, res) => {
   try {
-    const user = await userModelHelper.addUser(req.body);
-    console.log(user);
+    const {
+      name,
+      email,
+      password,
+      mobile,
+      roleId,
+      address,
+      libraryId,
+      libraryPlanId,
+    } = req.body;
+
+    // Validate input data
+    if (roleId === 103 && (!libraryId || !libraryPlanId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: "Library ID and Library Plan ID are required for role ID 103.",
+      });
+    }
+
+    // Create user
+    const user = await userModelHelper.addUser({
+      name,
+      email,
+      password,
+      mobile,
+      roleId,
+      address,
+      libraryId,
+      libraryPlanId, // Pass the libraryPlanId to the addUser helper
+    });
+
     res.status(StatusCodes.CREATED).json({
       success: true,
       message: "User created successfully",
@@ -21,8 +52,7 @@ const createUser = async (req, res) => {
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Server error",
-      error: error.message,
+      message: error.message || "Server error",
     });
   }
 };
@@ -74,6 +104,7 @@ const loginUser = async (req, res) => {
       data: {
         token: token,
         role: user.roleId,
+        userId: user.id,
       },
     });
   } catch (err) {
