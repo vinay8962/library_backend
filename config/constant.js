@@ -1,6 +1,6 @@
 module.exports = {
   ROLES: {
-    STUDE1NT: "103",
+    STUDENT: "103",
     ADMIN: "102",
   },
 };

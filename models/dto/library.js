@@ -1,6 +1,5 @@
 const sequelize = require("../../config/db");
 const Sequelize = require("sequelize");
-const libraryPlan = require("./library_plan");
 
 const library = sequelize.define(
   "Library",

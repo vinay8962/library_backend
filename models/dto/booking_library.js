@@ -15,6 +15,10 @@ const bookingLibrary = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    seat_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     library_id: {
       type: Sequelize.INTEGER,
       allowNull: false,

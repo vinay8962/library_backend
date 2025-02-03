@@ -10,6 +10,7 @@ const User = require("./user");
 // Import associations setup
 const setupAssociations = require("./associations");
 const sequelize = require("../../config/db");
+const LibraryHasSeats = require("./libraryHasSeats");
 
 // Initialize associations
 setupAssociations();
@@ -24,4 +25,5 @@ module.exports = {
   plans,
   Role,
   User,
+  LibraryHasSeats,
 };

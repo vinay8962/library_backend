@@ -1,4 +1,4 @@
-const { libraryUser } = require("../dto");
+const { libraryUser, User, libraryPlan } = require("../dto");
 
 const addLibraryUser = async (data) => {
   try {
@@ -11,11 +11,45 @@ const addLibraryUser = async (data) => {
 
 const getLibraryUser = async () => {
   try {
-    return await libraryUser.findAll();
+    return await libraryUser.findAll({
+      include: [
+        {
+          model: User,
+          as: "associatedUser",
+        },
+        {
+          model: libraryPlan,
+          as: "libraryPlan",
+        },
+      ],
+    });
   } catch (err) {
     console.error("Error fetching library users:", err.message); // Add error logging for debugging
     throw err;
   }
 };
 
-module.exports = { addLibraryUser, getLibraryUser };
+const getLibraryUserByLibraryId = async (id) => {
+  try {
+    return await libraryUser.findAll({
+      where: {
+        library_id: id,
+      },
+      include: [
+        {
+          model: User,
+          as: "associatedUser",
+        },
+        {
+          model: libraryPlan,
+          as: "libraryPlan",
+        },
+      ],
+    });
+  } catch (err) {
+    console.error("Error fetching library users:", err.message); // Add error logging for debugging
+    throw err;
+  }
+};
+
+module.exports = { addLibraryUser, getLibraryUser, getLibraryUserByLibraryId };

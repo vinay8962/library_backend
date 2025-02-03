@@ -1,4 +1,4 @@
-const { library, libraryPlan, plans } = require("../dto");
+const { library, libraryPlan, plans, LibraryHasSeats } = require("../dto");
 
 const addLibrary = async (data) => {
   try {
@@ -25,6 +25,19 @@ const addLibrary = async (data) => {
       owner_id,
     });
 
+    // Automatically create seat records for the library
+    if (seats && seats > 0) {
+      const seatRecords = [];
+      for (let i = 0; i < seats; i++) {
+        seatRecords.push({
+          libraryId: newLibrary.id,
+          status: "free", // Default status for all seats
+        });
+      }
+
+      await LibraryHasSeats.bulkCreate(seatRecords);
+    }
+
     // If there are plans, insert them with the library_id
     if (libraryplan && libraryplan.length > 0) {
       const libraryPlans = libraryplan.map((plan) => ({
@@ -37,10 +50,13 @@ const addLibrary = async (data) => {
       await libraryPlan.bulkCreate(libraryPlans); // Insert all plans in one go
     }
 
-    // Fetch the created library with its plans
+    // Fetch the created library with its plans and seats
     return await library.findOne({
       where: { id: newLibrary.id },
-      include: [{ model: libraryPlan, as: "libraryPlan" }],
+      include: [
+        { model: libraryPlan, as: "libraryPlan" },
+        { model: LibraryHasSeats, as: "librarySeats" }, // Include seats
+      ],
     });
   } catch (err) {
     throw new Error(err.message);

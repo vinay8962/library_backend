@@ -1,7 +1,9 @@
 const bookingLibrary = require("./booking_library");
 const library = require("./library");
 const libraryPlan = require("./library_plan");
+const LibraryUser = require("./library_users");
 const libraryUser = require("./library_users");
+const LibraryHasSeats = require("./libraryHasSeats");
 const plans = require("./plans");
 const Role = require("./role");
 const User = require("./user");
@@ -57,6 +59,18 @@ const setupAssociations = () => {
   libraryPlan.hasMany(libraryUser, {
     foreignKey: "library_plan_id", // Ensure this matches your foreign key in LibraryUser
     as: "libraryUsers", // Alias for the reverse association
+  });
+
+  library.hasMany(LibraryHasSeats, {
+    foreignKey: "libraryId",
+    as: "librarySeats",
+  });
+  LibraryHasSeats.belongsTo(library, {
+    foreignKey: "libraryId",
+    as: "library",
+  });
+  LibraryUser.findAll({
+    include: [{ model: User, as: "associatedUser" }], // Correct alias
   });
 };
 

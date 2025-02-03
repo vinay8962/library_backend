@@ -4,6 +4,21 @@ const bookingLibraryHelper = require("../models/dao/booking_library");
 const createBooking = async (req, res) => {
   try {
     const data = req.body;
+
+    // Basic validation (can be replaced with Joi or similar library)
+    if (
+      !data.library_id ||
+      !data.user_id ||
+      !data.seat_id ||
+      !data.booking_start_date_time ||
+      !data.booking_end_date_time
+    ) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
     const booking = await bookingLibraryHelper.createBookingLibrary(data);
     return res.status(StatusCodes.CREATED).json({
       success: true,
@@ -11,6 +26,7 @@ const createBooking = async (req, res) => {
       data: booking,
     });
   } catch (err) {
+    console.error("Error creating booking:", err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: err.message || "Server error",
@@ -27,6 +43,7 @@ const getBooking = async (req, res) => {
       data: booking,
     });
   } catch (err) {
+    console.error("Error retrieving bookings:", err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: err.message || "Server error",

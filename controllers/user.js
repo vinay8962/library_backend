@@ -57,9 +57,32 @@ const createUser = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+const getAllUser = async (req, res) => {
   try {
     const user = await userModelHelper.getAllUsers();
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "User retrieved successfully",
+      data: user,
+    });
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
+const getUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await userModelHelper.getUser(id);
+    if (!user) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "User not found",
+      });
+    }
     res.status(StatusCodes.OK).json({
       success: true,
       message: "User retrieved successfully",
@@ -116,4 +139,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getUser, loginUser };
+module.exports = { createUser, getAllUser, loginUser, getUser };

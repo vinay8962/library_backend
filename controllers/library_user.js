@@ -46,4 +46,34 @@ const getAllLibraryUser = async (req, res) => {
   }
 };
 
-module.exports = { createLibraryUser, getAllLibraryUser };
+const getLibraryUserByLibraryId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await libraryUserHelper.getLibraryUserByLibraryId(id);
+    if (!response || response.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "No library users found",
+      });
+    }
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Library users retrieved successfully",
+      data: response,
+    });
+  } catch (err) {
+    console.error("Error retrieving library users:", err.message); // Log the error
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Server error while retrieving library users",
+      error: err.message, // Return the error message for debugging
+    });
+  }
+};
+
+module.exports = {
+  createLibraryUser,
+  getAllLibraryUser,
+  getLibraryUserByLibraryId,
+};

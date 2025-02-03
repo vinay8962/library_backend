@@ -94,19 +94,20 @@ const getUser = async (id) => {
       include: [
         {
           model: Role,
-          as: "role",
+          as: "role", // Alias defined in User model
         },
         {
           model: libraryUser,
+          as: "libraryUsers", // Alias defined in User model
           include: [
-            // {
-            //   model: Library,
-            //   as: "library",
-            // },
-            // {
-            //   model: LibraryPlan,
-            //   as: "libraryPlan",
-            // },
+            {
+              model: library,
+              as: "library", // Alias defined in LibraryUser model
+            },
+            {
+              model: libraryPlan,
+              as: "libraryPlan", // Alias defined in LibraryUser model
+            },
           ],
         },
       ],

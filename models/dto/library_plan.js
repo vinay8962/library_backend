@@ -14,7 +14,7 @@ const libraryPlan = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: "librarys",
+        model: "Library",
         key: "id",
       },
     },

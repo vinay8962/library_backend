@@ -5,15 +5,15 @@ const {
   getLibrary,
   getLibraryById,
 } = require("../controllers/library");
-const authMiddleware = require("../middlewares/authMiddleware");
+const libraryMiddleware = require("../middlewares/LibraryMiddleware");
 
 const router = express();
 
-router.get("/", authMiddleware, getAllLibrarys);
+router.get("/", libraryMiddleware, getAllLibrarys);
 
-router.get("/:owner_id", authMiddleware, getLibrary);
-router.get("/librarybyid/:id", authMiddleware, getLibraryById);
+router.get("/:owner_id", libraryMiddleware, getLibrary);
+router.get("/librarybyid/:id", libraryMiddleware, getLibraryById);
 
-router.post("/", authMiddleware, createLibrary);
+router.post("/", libraryMiddleware, createLibrary);
 
 module.exports = router;
