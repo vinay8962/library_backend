@@ -87,4 +87,21 @@ const getBookingLibrary = async () => {
   }
 };
 
-module.exports = { createBookingLibrary, getBookingLibrary };
+const getBookingLibraryById = async (id) => {
+  try {
+    return await bookingLibrary.findOne({
+      where: {
+        user_id: id,
+      },
+    });
+  } catch (err) {
+    console.error("Error fetching library users:", err.message); // Add error logging for debugging
+    throw err;
+  }
+};
+
+module.exports = {
+  createBookingLibrary,
+  getBookingLibrary,
+  getBookingLibraryById,
+};

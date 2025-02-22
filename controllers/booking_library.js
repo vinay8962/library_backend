@@ -51,4 +51,22 @@ const getBooking = async (req, res) => {
   }
 };
 
-module.exports = { createBooking, getBooking };
+const getBookingById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const booking = await bookingLibraryHelper.getBookingLibraryById(id);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Booking retrieved successfully",
+      data: booking,
+    });
+  } catch (err) {
+    console.error("Error retrieving bookings:", err.message);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: err.message || "Server error",
+    });
+  }
+};
+
+module.exports = { createBooking, getBooking, getBookingById };
