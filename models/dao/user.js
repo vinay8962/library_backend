@@ -1,6 +1,6 @@
 const { User, Role, libraryUser, library, libraryPlan } = require("../dto");
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const addUser = async ({
   name,
