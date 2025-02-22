@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const userModelHelper = require("../models/dao/user");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { roles } = require("../config/constant");
